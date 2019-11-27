@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     capitan: DataTypes.STRING
   }, {});
   Team.associate = function(models) {
-   
+   Team.hasMany(models.Round, {as : 'rounds' })
   };
   return Team;
 };

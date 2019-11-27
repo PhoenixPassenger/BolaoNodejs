@@ -176,17 +176,6 @@ router.put('/changePassword/',(req,res) =>
     let userData = {
       password: req.body.password ? req.body.password : decoded.password,
     }
-  //   console.log('chegou aqui')
-    
-  //     console.log('chegou aqui 2')
-  //   bcrypt.hash(userData.password, 10, (err, hash) => {
-  //   let newPassord = hash
-  //   }).then(ress =>{
-  //     console.log(ress)
-  //   })
-  //  console.log('chegou aqui 3')
-    
-    
    bcrypt.hash(userData.password, 10, (err, hash) => {
     userData.password = hash
     models.User.update(
@@ -195,10 +184,6 @@ router.put('/changePassword/',(req,res) =>
       {where: {id : user.id}}
     ).then(res.send(user))
   })
-
-    
-
-    
     })
     .catch(res => {
       return res
