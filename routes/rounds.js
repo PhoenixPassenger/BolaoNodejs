@@ -40,4 +40,33 @@ router.post('/register', (req, res) => {
 
 });
 
+
+//delete round
+router.delete('/del/',(req,res)=> {
+    var decoded = jwt.verify(req.headers['x-access-token'], process.env.SECRET_KEY)
+    models.User.findOne({
+      where: {
+        id: decoded.id
+      }
+      }).then(user =>{
+          if(user.isAdmin){
+            models.Round.destroy({
+                where: {
+                    id: req.body.id
+                }
+            })
+            .then(resp => 
+              {res.json(resp)})
+          }else{
+              res.send('tu não és admin parceiro')
+          }
+      })
+      .catch(err =>{
+          res.send('error: ' + err)
+      })
+  
+})
+
 module.exports = router;
+
+
