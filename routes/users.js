@@ -126,4 +126,84 @@ router.get('/profile', (req, res) => {
     })
 })
 
+//Update data from user
+router.put('/update/',(req,res) =>
+{
+  var decoded = jwt.verify(req.headers['x-access-token'], process.env.SECRET_KEY)
+  models.User.findOne({
+    where: {
+      id: decoded.id
+    }
+    })
+    .then(user =>{
+    const userData = {
+      name: req.body.name ? req.body.name : decoded.name,
+      nickname: req.body.nickname ? req.body.nickname : decoded.nickname,
+      email: req.body.email ? req.body.email : decoded.email
+    }
+    console.log(userData)
+    models.User.update(
+      {name: userData.name,
+        nickname: userData.nickname,
+        email: userData.email
+      },
+      {where: {id : decoded.id}}
+    ).then(teste => {res.send(teste)})
+    
+
+
+  // models.User.update(
+  //     userData, {where: { id: '1' } })
+
+    })
+    .catch(res => {
+      res.send(res)
+    })
+  });
+
+
+//change password
+router.put('/changePassword/',(req,res) =>
+{
+  var decoded = jwt.verify(req.headers['x-access-token'], process.env.SECRET_KEY)
+  models.User.findOne({
+    where: {
+      id: decoded.id
+    }
+    })
+    .then(async user =>{
+      console.log(user.name)
+    let userData = {
+      password: req.body.password ? req.body.password : decoded.password,
+    }
+  //   console.log('chegou aqui')
+    
+  //     console.log('chegou aqui 2')
+  //   bcrypt.hash(userData.password, 10, (err, hash) => {
+  //   let newPassord = hash
+  //   }).then(ress =>{
+  //     console.log(ress)
+  //   })
+  //  console.log('chegou aqui 3')
+    
+    
+   bcrypt.hash(userData.password, 10, (err, hash) => {
+    userData.password = hash
+    models.User.update(
+      {password: userData.password
+      },
+      {where: {id : user.id}}
+    ).then(res.send(user))
+  })
+
+    
+
+    
+    })
+    .catch(res => {
+      return res
+    })
+  });
+
+
 module.exports = router;
