@@ -1,24 +1,17 @@
 {
   "development": {
     "username": "root",
-    "password": "klr013579",
+    "password": "password",
     "database": "bolaoServer",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "operatorsAliases": false
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "port" : "5444",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
+    "password": "klr013579",
+    "database": "producao",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false

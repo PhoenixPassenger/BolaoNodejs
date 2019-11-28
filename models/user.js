@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     nickname: DataTypes.STRING
   }, {});
   User.associate = function(models) {
-    
+    User.hasMany(models.Hint, {as : 'hints' })
   };
   return User;
 };

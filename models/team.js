@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Team.associate = function(models) {
    Team.hasMany(models.Round, {as : 'rounds' })
+   Team.hasMany(models.Hint, {as : 'hints' })
   };
   return Team;
 };
