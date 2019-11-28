@@ -10,11 +10,21 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+//list all rounds
+router.get('/all', (req, res) => {
+    models.Round.findAll({
+    }).then(round => {
+      if(round){
+          res.send(round)
+      }
+  })
+  });
+
 router.post('/register', (req, res) => {
     console.log("entrou aqui")
     const roundData = {
         competitionName: req.body.competitionName,
-        idTeam: req.body.idTeam,
+        TeamId: req.body.TeamId,
         rank: req.body.rank
       }
       var decoded = jwt.verify(req.headers['x-access-token'], process.env.SECRET_KEY)
@@ -65,6 +75,36 @@ router.delete('/del/',(req,res)=> {
           res.send('error: ' + err)
       })
   
+})
+
+router.put('/update/:id',(req,res) =>{
+var decoded = jwt.verify(req.headers['x-access-token'], process.env.SECRET_KEY)
+
+models.User.findOne({where :
+{id: decoded.id}})
+.then(user=> {
+    if(user.isAdmin){
+        models.Round.findOne({where : {id: req.params.id}})
+        .then(round =>{
+            const roundData = {
+                competitionName: req.body.competitionName ? req.body.competitionName : round.competitionName,
+                TeamId: req.body.TeamId ? req.body.TeamId : round.TeamId,
+                rank: req.body.rank ? req.body.rank : round.rank
+            }
+            models.Round.update({
+                competitionName: roundData.competitionName,
+                idTeam: roundData.TeamId,
+                rank: roundData.rank
+            },{where : {id: round.id}})
+
+            .then(res.send(round))
+        })
+    }
+    
+    })
+
+
+
 })
 
 module.exports = router;
