@@ -20,6 +20,34 @@ router.get('/all', (req, res) => {
   })
   });
 
+  router.get('/generate', function(req, res, next) {
+    models.Team.findAll({ 
+        attributes : ['id']
+    })
+    .then((tms) =>{
+        tms.sort(() => Math.random() - 0.5);
+        values = []
+        
+        for (const team of tms) {
+            values.push({
+                TeamId: team.id, rank: (tms.indexOf(team))+1, competitionName: req.body.compName
+            })
+        }
+        models.Round.bulkCreate(values)
+        .then((ans) =>{
+            res.send("enviado")
+        })
+        .catch((err) =>{
+            console.log(err)
+        })
+
+    })
+    .catch((err)=> {
+        console.log(err)
+    })
+    
+});
+
 router.post('/register', (req, res) => {
     console.log("entrou aqui")
     const roundData = {

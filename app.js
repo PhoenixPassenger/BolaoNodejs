@@ -8,6 +8,7 @@ var usersRouter = require('./routes/users');
 var teamsRouter = require('./routes/teams');
 var roundsRouter = require('./routes/rounds');
 var hintsRouter = require('./routes/hints');
+var scoresRouter = require('./routes/scores');
 var app = express();
 
 app.use(logger('dev'));
@@ -21,4 +22,5 @@ app.use('/users', usersRouter);
 app.use('/teams', teamsRouter);
 app.use('/rounds', roundsRouter);
 app.use('/hints', hintsRouter);
+app.use('/scores', scoresRouter);
 module.exports = app;
