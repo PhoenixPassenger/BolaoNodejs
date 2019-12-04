@@ -15,7 +15,8 @@ router.get('/all', (req, res) => {
   models.Team.findAll({
   }).then(Team => {
     if(Team){
-        res.send(Team)
+      console.log(JSON.stringify(Team))
+        res.send((Team))
     }
 })
 });
@@ -241,9 +242,11 @@ router.put('/update/',(req,res) =>
 ])
     .then((newTeam) => {
         console.log('gerado')
+        res.send(newTeam)
     })
     .catch((err) => {
         console.log("deu erro: ", err) 
+        res.send(newTeam)
     })
 });
 

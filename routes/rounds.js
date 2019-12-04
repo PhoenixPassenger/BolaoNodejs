@@ -12,7 +12,8 @@ router.get('/', function(req, res, next) {
 
 //list all rounds
 router.get('/all', (req, res) => {
-    models.Round.findAll({
+    models.Round.findAll({attributes:['competitionName'],
+        group:['competitionName']
     }).then(round => {
       if(round){
           res.send(round)
@@ -20,7 +21,19 @@ router.get('/all', (req, res) => {
   })
   });
 
-  router.get('/generate', function(req, res, next) {
+  router.get('/allByName', (req, res) => {
+    models.Round.findAll({
+        where : {competitionName : req.body.competitionName},
+        order: [['rank', "ASC"]]
+    }).then(round => {
+      if(round){
+          res.send(round)
+      }
+  })
+  });
+
+  router.post('/generate', function(req, res, next) {
+    console.log(req.body)
     models.Team.findAll({ 
         attributes : ['id']
     })

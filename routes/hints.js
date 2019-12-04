@@ -21,7 +21,6 @@ router.get('/all', (req, res) => {
 
 router.post('/register', (req, res) => {
   console.log("entrou aqui")
-  
     var decoded = jwt.verify(req.headers['x-access-token'], process.env.SECRET_KEY)
     const hintData = {
       UserId: decoded.id,

@@ -1,10 +1,10 @@
 {
   "development": {
     "username": "root",
-    "password": null,
+    "password": "password",
     "database": "bolaoServer",
     "host": "127.0.0.1",
-    "port" : "3306",
+    "port" : "5444",
     "dialect": "mysql",
     "operatorsAliases": false
   },
