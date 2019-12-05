@@ -13,6 +13,9 @@ router.get('/', function(req, res, next) {
 //list all teams
 router.get('/all', (req, res) => {
   models.Team.findAll({
+    include: [
+      {model : models.Round, as: 'rounds'}
+    ]
   }).then(Team => {
     if(Team){
       console.log(JSON.stringify(Team))
@@ -20,6 +23,17 @@ router.get('/all', (req, res) => {
     }
 })
 });
+
+router.post('/teamsRound',(req,res) => {
+  console.log(req.body)
+  models.Team.findAll({
+    include : [{model : models.Round, as: 'rounds', where : {
+      competitionName : req.body.competitionName
+    }}]
+  }).then(rounds => {
+    res.send(rounds)
+  })
+})
 
 //create new team
 router.post('/new',(req,res) =>{

@@ -22,7 +22,9 @@ router.get('/all', (req, res) => {
   });
 
   router.get('/allByName', (req, res) => {
-    models.Round.findAll({
+    models.Round.findAll({include : [
+        {model : models.Team, as: 'team'}
+    ],
         where : {competitionName : req.body.competitionName},
         order: [['rank', "ASC"]]
     }).then(round => {

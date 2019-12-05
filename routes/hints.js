@@ -18,6 +18,24 @@ router.get('/all', (req, res) => {
 })
 });
 
+router.post('/registerHint', (req, res) => {
+  req.body.values.forEach(element => {
+    const hintData = {
+      UserId: element.userId,
+      competitionName: element.competitionName,
+      TeamId: element.idTeam,
+      rank: element.rank
+    }
+    models.Hint.create(hintData)
+    .then((ans) =>{
+        
+    })
+    .catch((err) =>{
+        console.log(err)
+    })
+  });
+  res.send("enviado")
+});
 
 router.post('/register', (req, res) => {
   console.log("entrou aqui")
