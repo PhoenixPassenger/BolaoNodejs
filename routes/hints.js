@@ -19,6 +19,7 @@ router.get('/all', (req, res) => {
 });
 
 router.post('/registerHint', (req, res) => {
+  let resp = []
   req.body.values.forEach(element => {
     const hintData = {
       UserId: element.userId,
@@ -28,13 +29,13 @@ router.post('/registerHint', (req, res) => {
     }
     models.Hint.create(hintData)
     .then((ans) =>{
-        
+        resp.push(ans)
     })
     .catch((err) =>{
         console.log(err)
     })
   });
-  res.send("enviado")
+  res.send("enviado" + resp)
 });
 
 router.post('/register', (req, res) => {
