@@ -18,6 +18,28 @@ router.get('/all', (req, res) => {
 })
 });
 
+router.post('/allByName', (req, res) => {
+  var decoded = jwt.verify(req.headers['x-access-token'], process.env.SECRET_KEY)
+  models.Hint.findAll({include : [
+      {model : models.Team, as: 'team'}
+  ],
+      where : {
+      competitionName : req.body.competitionName,
+      UserId : decoded.id}, 
+      order: [['rank', "ASC"]]
+  }).then(hint => {
+    if(hint.length > 0){
+        res.send(hint)
+    }
+    else{
+      res.send("Não há palpites desse usuário para esta rodada")
+    }
+})
+.catch(err=>{
+    res.send(err)
+})
+});
+
 router.post('/registerHint', (req, res) => {
   let resp = []
   req.body.values.forEach(element => {
