@@ -9,10 +9,10 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
-    "password": "klr013579",
-    "database": "producao",
-    "host": "127.0.0.1",
+    "username": "D7mEhZlXSj",
+    "password": "ucVuHbhBND",
+    "database": "D7mEhZlXSj",
+    "host": "remotemysql.com",
     "dialect": "mysql",
     "operatorsAliases": false
   }
