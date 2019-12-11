@@ -25,20 +25,30 @@ router.post('/calculate', function (req,res,next) {
             }})
             .then(vetrounds => {
                 var score = 0
+                var success = 0
                 var scorearr = []
                 for (hint of vethints) {
-                    for (round of vetrounds) {
-                        if (hint.TeamId == round.TeamId && hint.rank == round.rank){
-                            score++
-                            scorearr.push(hint)
-                        } 
+                    var round = vetrounds.find(obj =>{
+                        return obj.TeamId === hint.TeamId
+                    })
+                    if(hint.rank == round.rank){
+                        success++
+                        scorearr.push(hint)
                     }
+                    score += Math.pow(hint.rank - round.rank,2)
+
+
                 }
+                score = Math.sqrt(score)
                 res.send({
                     score: score,
-                    teamsScored: scorearr
+                    hits : success,
+                    hintsScore: scorearr
                 })
 
+            })
+            .catch(errou=>{
+                console.log("EROOU" + errou)
             })
         })
         .catch(error => {
