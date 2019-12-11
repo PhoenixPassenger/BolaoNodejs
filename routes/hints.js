@@ -9,6 +9,30 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.post('/allByName', (req, res) => {
+  var decoded = jwt.verify(req.headers['x-access-token'], process.env.SECRET_KEY)
+  models.Hint.findAll({include : [
+      {model : models.Team, as: 'team'}
+  ],
+      where : {
+      competitionName : req.body.competitionName,
+      UserId : decoded.id}, 
+      order: [['rank', "ASC"]]
+  }).then(hint => {
+    if(hint.length > 0){
+        res.send(hint)
+    }
+    else{
+      res.send('0')
+    }
+})
+.catch(err=>{
+    res.send(err)
+})
+});
+
+
+
 router.get('/all', (req, res) => {
   models.Hint.findAll({
   }).then(hint => {
