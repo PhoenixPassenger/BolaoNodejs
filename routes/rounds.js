@@ -21,10 +21,21 @@ router.get('/all', (req, res) => {
   })
   });
 
-  router.get('/allByName', (req, res) => {
+  router.post('/allByName', (req, res) => {
     models.Round.findAll({include : [
         {model : models.Team, as: 'team'}
     ],
+        where : {competitionName : req.body.competitionName},
+        order: [['rank', "ASC"]]
+    }).then(round => {
+      if(round){
+          res.send(round)
+      }
+  })
+  });
+
+  router.post('/checkName', (req, res) => {
+    models.Round.findAll({
         where : {competitionName : req.body.competitionName},
         order: [['rank', "ASC"]]
     }).then(round => {
