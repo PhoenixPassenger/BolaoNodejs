@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "root",
-    "password": "password",
-    "database": "bolaoServer",
-    "host": "127.0.0.1",
-    "port" : "5444",
+    "username": "D7mEhZlXSj",
+    "password": "ucVuHbhBND",
+    "database": "D7mEhZlXSj",
+    "host": "remotemysql.com",
+    "port" : "3306",
     "dialect": "mysql",
     "operatorsAliases": false
   },
